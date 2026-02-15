@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<div class="container">
+    <div class="card">
+        <h2>Monthly Expenditure (Bar Graph)</h2>
+        <canvas id="barChart" height="120"></canvas>
+    </div>
+
+    <button onclick="goBack()" style="margin-top:20px;">⬅ Back to Dashboard</button>
+</div>
+
+<script>
+    const API_URL = "http://localhost:8080/api/transactions";
+
+    async function loadBarChart() {
+      try {
+        const res = await fetch(API_URL);
+        const data = await res.json();
+
+        const expenseByDate = {};
+
+        data.forEach(t => {
+          if (t.type === "expense") {
+            expenseByDate[t.date] = (expenseByDate[t.date] || 0) + t.amount;
+          }
+        });
+
+        const labels = Object.keys(expenseByDate);
+        const values = Object.values(expenseByDate);
+
+        const ctx = document.getElementById("barChart");
+
+        new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: labels,
+            datasets: [{
+              label: "Daily Expense",
+              data: values
+            }]
+          },
+          options: {
+            plugins: {
+              legend: {
+                labels: { color: "#e2e8f0" }
+              }
+            },
+            scales: {
+              x: { ticks: { color: "#e2e8f0" } },
+              y: { ticks: { color: "#e2e8f0" } }
+            }
+          }
+        });
+
+      } catch (err) {
+        console.error("Error loading bar chart:", err);
+      }
+    }
+
+    function goBack() {
+      window.location.href = "index.html";
+    }
+
+    loadBarChart();
+</script>
+</body>
+</html>

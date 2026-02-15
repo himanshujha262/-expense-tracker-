@@ -1,0 +1,86 @@
+<!--
+Folder Structure:
+
+expense-tracker-frontend/
+│
+├── index.html
+├── css/
+│   └── style.css
+└── js/
+    └── app.js
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monthly Expense Tracker</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="detailsSheet" href="details.html"/>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header>
+    <h1> Monthly Expense Tracker</h1>
+</header>
+
+<div class="container">
+
+    <!-- Summary Cards -->
+    <div class="grid">
+        <div class="card">
+            <h2>Total Income</h2>
+            <p id="income">₹0</p>
+        </div>
+        <div class="card">
+            <h2>Total Expense</h2>
+            <p id="expense">₹0</p>
+        </div>
+        <div class="card">
+            <h2>Balance</h2>
+            <p id="balance">₹0</p>
+        </div>
+    </div>
+
+    <!-- Add Transaction Form -->
+    <form id="transactionForm">
+        <input type="text" id="note" placeholder="Note" required />
+        <input type="number" id="amount" placeholder="Amount" required />
+
+        <select id="type">
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+        </select>
+
+        <input type="date" id="date" required />
+
+        <button type="submit">Add</button>
+    </form>
+
+    <!-- Transactions Table -->
+    <table>
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Note</th>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody id="transactionTable"></tbody>
+    </table>
+
+    <!-- Chart -->
+    <canvas id="expenseChart" height="120"></canvas>
+</div>
+
+<!-- External JavaScript -->
+<script src="app.js"></script>
+</body>
+</html>
